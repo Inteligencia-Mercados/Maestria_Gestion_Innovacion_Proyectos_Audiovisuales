@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Ejecutivo — Maestría en Gestión e Innovación de Proyectos Audiovisuales | UAO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  /* paleta de referencia (Gestión Ambiental y Turística) */
+  --primary:#8C0F13;
+  --accent:#C0151A;
+  --sidebar-bg:#111111;
+  --bg:#f0f2f5;
+  --surface:#ffffff;
+  --ink:#1a1a2e;
+  --ink-soft:#6b7280;
+  --ink-faint:#8A9099;
+  --line:#e5e7eb;
+  --shadow:0 2px 14px rgba(0,0,0,0.07);
+  --shadow-hover:0 8px 32px rgba(140,15,19,0.14);
+  --blue:#1d4ed8; --blue-pale:#dbeafe;
+  --purple:#7c3aed; --purple-pale:#f3e8ff;
+
+  /* alias de compatibilidad con el sistema anterior — mismos usos, nueva paleta */
+  --wine:var(--primary);
+  --wine-soft:var(--accent);
+  --wine-pale:#fee2e2;
+  --gold:#d97706;
+  --gold-pale:#fef3c7;
+  --slate:#475569;
+  --slate-light:#c7cdd6;
+  --slate-pale:#eef1f5;
+  --good:#15803d;
+  --good-pale:#dcfce7;
+  --warn:#991b1b;
+  --warn-pale:#fee2e2;
+  --disp:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"Barlow","Segoe UI",Tahoma,sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:var(--body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.5;
+  font-size:14px;
+}
+h1,h2,h3,h4{font-family:var(--disp);}
+.layout{display:flex; align-items:stretch; min-height:100vh;}
+.main{flex:1; min-width:0; padding-top:56px;}
+.wrap{max-width:1160px; margin:0 auto; padding:0 32px 80px;}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+#topbar{
+  position:fixed; top:0; left:256px; right:0; height:56px; background:#fff; z-index:60;
+  display:flex; align-items:center; justify-content:space-between; padding:0 26px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+#topbar .tt{font-family:var(--disp); font-size:19px; font-weight:800; color:var(--primary); text-transform:uppercase;}
+#topbar .tt span{color:var(--ink-soft); font-weight:600; font-size:12px; text-transform:none; margin-left:10px; font-family:var(--body);}
+#btn-pdf{
+  background:linear-gradient(135deg,var(--primary),var(--accent)); color:#fff; border:none;
+  padding:9px 18px; border-radius:7px; font-size:12.5px; font-weight:700; cursor:pointer;
+  letter-spacing:.2px; font-family:var(--body);
+}
+#btn-pdf:hover{filter:brightness(1.08);}
+@media(max-width:900px){
+  #topbar{left:0;}
+  .main{margin-left:0;}
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  background:#6E1116;
+  color:#fff;
+  padding:40px 32px 34px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-inner{max-width:1160px; margin:0 auto; position:relative; z-index:1;}
+.eyebrow{
+  font-size:12px; letter-spacing:1.2px; text-transform:uppercase;
+  color:#fff; opacity:.85; font-weight:600;
+}
+.hero h1{
+  font-family:var(--disp);
+  font-size:34px; font-weight:800; margin-top:6px; line-height:1.1;
+  max-width:820px; text-transform:uppercase;
+}
+.hero p.sub{margin-top:8px; font-size:13.5px; color:#f2dcdc; opacity:.9; max-width:720px;}
+.hero-meta{
+  display:flex; gap:28px; margin-top:22px; flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.18); padding-top:16px;
+}
+.hero-meta div{font-size:12px; color:#f2dcdc;}
+.hero-meta b{display:block; font-family:var(--disp); font-size:18px; color:#fff; font-weight:700;}
+
+/* ============================================================
+   NAV — sidebar lateral izquierdo (tema oscuro)
+   ============================================================ */
+.sidenav{
+  width:256px; min-width:256px;
+  background:var(--sidebar-bg); color:#fff;
+  position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto;
+  padding:0;
+  z-index:70;
+  display:flex; flex-direction:column;
+}
+.sidenav-brand{
+  padding:22px 20px 18px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.sidenav-brand .logo-name{font-family:var(--disp); font-size:17px; font-weight:800; text-transform:uppercase; line-height:1.15;}
+.sidenav-brand .logo-sub{font-size:11px; color:#9ca3af; margin-top:4px;}
+.sidenav-brand .year-badge{display:inline-block; margin-top:10px; background:var(--accent); color:#fff;
+  font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;}
+.sidenav-nav{flex:1; padding:14px 0;}
+.sidenav-label{
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#8b8b93;
+  font-weight:700; margin:0 20px 6px;
+}
+.sidenav a{
+  display:flex; align-items:center; gap:10px;
+  padding:11px 20px; margin-bottom:0; border-radius:0;
+  font-size:13px; color:#c7c7cc; text-decoration:none; font-weight:500;
+  border-left:3px solid transparent; transition:all .15s ease;
+}
+.sidenav a .tag{
+  font-family:var(--disp); font-size:14px; color:inherit; width:18px; flex-shrink:0; text-align:center;
+}
+.sidenav a:hover, .sidenav a.active{background:rgba(192,21,26,.12); color:#fff; border-left-color:var(--accent);}
+.sidenav-foot{padding:16px 20px; border-top:1px solid rgba(255,255,255,.1); font-size:10.5px; color:#8b8b93; line-height:1.6;}
+
+@media(max-width:900px){
+  .layout{flex-direction:column;}
+  .sidenav{
+    position:relative; width:100%; min-width:0; height:auto; top:0;
+    display:flex; flex-direction:row; align-items:center; gap:4px; overflow-x:auto; padding:0;
+  }
+  .sidenav-brand{display:none;}
+  .sidenav-nav{display:flex; padding:8px 10px;}
+  .sidenav-label{display:none;}
+  .sidenav a{white-space:nowrap; border-left:none; border-bottom:2px solid transparent; padding:10px 12px;}
+  .sidenav a.active{border-left:none; border-bottom-color:var(--accent);}
+  .sidenav-foot{display:none;}
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section{padding-top:32px;}
+.section-head{margin-bottom:20px; border-bottom:2px solid var(--line); padding-bottom:12px;}
+.section-tag{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700;}
+.section-title{font-family:var(--disp); font-size:26px; font-weight:800; margin-top:2px; color:var(--primary); text-transform:uppercase;}
+.section-q{font-size:13px; color:var(--ink-soft); margin-top:6px; max-width:760px;}
+
+.card{
+  background:var(--surface); border-radius:10px; box-shadow:var(--shadow);
+  padding:20px 22px;
+}
+.grid{display:grid; gap:16px;}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:900px){.grid-4{grid-template-columns:repeat(2,1fr);} .grid-3{grid-template-columns:repeat(2,1fr);} .grid-2{grid-template-columns:1fr;}}
+
+/* KPI */
+.kpi{padding:18px 16px; text-align:center; border-top:4px solid var(--primary);}
+.kpi.c-blue{border-top-color:var(--blue);} .kpi.c-good{border-top-color:var(--good);}
+.kpi.c-gold{border-top-color:var(--gold);} .kpi.c-purple{border-top-color:var(--purple);}
+.kpi .lbl{font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); font-weight:600;}
+.kpi .val{font-family:var(--disp); font-size:34px; margin-top:6px; color:var(--primary); font-weight:800;}
+.kpi.c-blue .val{color:var(--blue);} .kpi.c-good .val{color:var(--good);}
+.kpi.c-gold .val{color:var(--gold);} .kpi.c-purple .val{color:var(--purple);}
+.kpi .foot{font-size:11.5px; color:var(--ink-soft); margin-top:6px;}
+
+/* Tables */
+table{width:100%; border-collapse:collapse; font-size:12.5px;}
+th{
+  text-align:left; font-size:11px; letter-spacing:.03em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:700; padding:9px 10px; border-bottom:2px solid var(--line);
+  cursor:pointer; user-select:none; background:#fafafa; font-family:var(--disp);
+}
+th:hover{color:var(--primary);}
+th.sorted::after{content:" ▾"; font-size:9px;}
+th.sorted.asc::after{content:" ▴"; font-size:9px;}
+th[data-key]{cursor:pointer;}
+th[data-key]::before{content:"⇅ "; font-size:8px; color:var(--ink-faint); opacity:.6;}
+th.sorted::before{display:none;}
+td{padding:8px 10px; border-bottom:1px solid var(--line); color:var(--ink);}
+tr.uao-row td{background:#fefce8; font-weight:700; color:var(--primary);}
+tbody tr:hover td{background:#f8fafc;}
+tr.uao-row:hover td{background:#fef9c3;}
+
+/* scrollable containers */
+.table-scroll{max-height:440px; overflow-y:auto; border:1px solid var(--line); border-radius:6px;}
+.table-scroll table{font-size:12px;}
+.table-scroll thead th{position:sticky; top:0; z-index:1;}
+.barlist-scroll{max-height:360px; overflow-y:auto; padding-right:6px;}
+
+/* badges */
+.badge{display:inline-block; padding:2px 8px; border-radius:20px; font-size:10.5px; font-weight:700;}
+.badge-wine{background:var(--wine-pale); color:var(--primary);}
+.badge-gold{background:var(--gold-pale); color:#92400e;}
+.badge-good{background:var(--good-pale); color:var(--good);}
+.badge-warn{background:var(--warn-pale); color:var(--warn);}
+.badge-slate{background:var(--slate-pale); color:var(--slate);}
+
+/* bars */
+.barlist{display:flex; flex-direction:column; gap:10px;}
+.barrow{display:grid; grid-template-columns:150px 1fr 46px; align-items:center; gap:10px; font-size:12px;}
+.barrow .label{color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.bartrack{background:var(--slate-pale); border-radius:3px; height:14px; position:relative; overflow:hidden;}
+.barfill{height:100%; border-radius:3px; background:var(--slate);}
+.barfill.wine{background:var(--primary);}
+.barfill.gold{background:var(--gold);}
+.barrow .num{text-align:right; font-weight:700; color:var(--ink);}
+
+/* word cloud */
+.cloud{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px 10px; padding:16px 10px;}
+.cloud span{
+  display:inline-flex; align-items:center; white-space:nowrap; line-height:1;
+  color:var(--slate); font-weight:700; background:var(--slate-pale);
+  padding:6px 12px; border-radius:20px;
+}
+.cloud span.uao{color:#fff; background:var(--wine);}
+
+/* insight boxes (hallazgos / oportunidades) */
+.insight{display:flex; gap:14px; padding:14px 16px; border-radius:8px; margin-bottom:12px; align-items:flex-start;}
+.insight.blue{background:var(--blue-pale); border-left:4px solid var(--blue);}
+.insight.good{background:var(--good-pale); border-left:4px solid var(--good);}
+.insight.gold{background:var(--gold-pale); border-left:4px solid var(--gold);}
+.insight.wine{background:var(--wine-pale); border-left:4px solid var(--primary);}
+.insight .ico{font-size:19px; flex-shrink:0; margin-top:1px;}
+.insight .content p{font-size:12.5px; line-height:1.55; color:var(--ink);}
+
+/* diagnostic quadrants */
+.diag-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media(max-width:800px){.diag-grid{grid-template-columns:1fr;}}
+.diag-box{border-radius:8px; padding:16px 18px;}
+.diag-box h4{font-family:var(--disp); font-size:14px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; font-weight:700;}
+.diag-box ul{padding-left:18px; font-size:12.5px; color:var(--ink);}
+.diag-box li{margin-bottom:5px;}
+.diag-f{background:var(--good-pale);} .diag-f h4{color:var(--good);}
+.diag-d{background:var(--warn-pale);} .diag-d h4{color:var(--warn);}
+.diag-o{background:var(--gold-pale);} .diag-o h4{color:#92400e;}
+.diag-r{background:var(--wine-pale);} .diag-r h4{color:var(--primary);}
+
+.note{font-size:11.5px; color:var(--ink-faint); margin-top:8px;}
+.small{font-size:12px; color:var(--ink-soft);}
+h3.h{font-family:var(--disp); font-size:17px; font-weight:700; margin-bottom:12px; color:var(--primary); text-transform:uppercase;}
+.legend{display:flex; gap:14px; font-size:11px; color:var(--ink-soft); margin-top:8px; flex-wrap:wrap;}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+
+footer{margin-top:60px; padding:24px 32px; text-align:center; font-size:11px; color:var(--ink-faint); border-top:1px solid var(--line);}
+
+@media print{
+  .sidenav, #topbar{display:none !important;}
+  .main{margin-left:0 !important; padding-top:0 !important;}
+  .card{box-shadow:none; break-inside:avoid;}
+  .hero{background-color:#6E1116 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  section{page-break-inside:avoid; padding-top:20px;}
+  body{font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+<nav class="sidenav" id="sidenav">
+  <div class="sidenav-brand">
+    <div class="logo-name">Gestión e Innovación<br>de Proyectos Audiovisuales</div>
+    <div class="logo-sub">Informe · UAO</div>
+    <span class="year-badge">2026</span>
+  </div>
+  <div class="sidenav-nav">
+    <div class="sidenav-label">Contenido</div>
+    <a href="#resumen" class="nav-link active"><span class="tag">🏠</span>Resumen Ejecutivo</a>
+    <a href="#caract" class="nav-link"><span class="tag">🗂️</span>Caracterización</a>
+    <a href="#benchmark" class="nav-link"><span class="tag">🗺️</span>Comparativo Nacional</a>
+    <a href="#denominacion" class="nav-link"><span class="tag">🔤</span>Análisis de Denominación</a>
+    <a href="#conclusiones" class="nav-link"><span class="tag">🎯</span>Conclusiones</a>
+  </div>
+  <div class="sidenav-foot">Fuente: SNIES · MEN Colombia<br>n = <span id="foot-n">—</span> programas comparables<br>Actualizado: julio 2026<br>Elaborado por: Natalia Santamaría - Profesional en Inteligencia de Mercados.</div>
+</nav>
+
+<div class="main">
+<div id="topbar">
+  <div class="tt">Informe — Nuevo Programa <span>Maestría en Gestión e Innovación de Proyectos Audiovisuales · UAO</span></div>
+  <button id="btn-pdf" onclick="window.print()">⬇ Descargar PDF Ejecutivo</button>
+</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Inteligencia de Mercados · UAO · Comité Curricular</div>
+    <h1>Maestría en Gestión e Innovación de Proyectos Audiovisuales</h1>
+    <p class="sub">Análisis competitivo nacional frente a 63 maestrías afines registradas en SNIES, con análisis léxico de la denominación propuesta.</p>
+    <div class="hero-meta">
+      <div><b>Universidad Autónoma de Occidente</b> </div>
+      <div><b>Santiago de Cali · Valle del Cauca</b>Sede de oferta</div>
+      <div><b id="m-n">—</b>Programas</div>
+      <div><b>Híbrida · 3 semestres · 42 créditos</b>Programa propuesto</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ============================================================ SECTION A ============================================================ -->
+<section id="resumen">
+  <div class="section-head">
+    
+    <div class="section-title">A. Resumen Ejecutivo</div>
+    <div class="section-q">Posición general del programa propuesto frente al mercado nacional de maestrías afines</div>
+  </div>
+  <div class="grid grid-4" id="kpi-grid"></div>
+  <div class="card" style="margin-top:16px;">
+    <h3 class="h">Hallazgos prioritarios</h3>
+    <div id="findings-list"></div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION B ============================================================ -->
+<section id="caract">
+  <div class="section-head">
+    
+    <div class="section-title">B. Caracterización del Programa</div>
+    <div class="section-q">Programa propuesto frente a los programas analizados (modalidad, duración, créditos, precio, sector)</div>
+  </div>
+  <div class="card">
+    <h3 class="h">Ranking nacional de programas</h3>
+    <div class="table-scroll">
+      <table id="ranking-table">
+        <thead><tr>
+          <th data-key="inst">Institución</th><th data-key="nombre">Programa</th><th data-key="modalidad">Modalidad</th>
+          <th data-key="creditos">Créditos</th><th data-key="duracion">Duración (sem.)</th>
+          <th data-key="precio">Precio</th>
+          <th data-key="d2020">2020</th><th data-key="d2021">2021</th><th data-key="d2022">2022</th><th data-key="d2023">2023</th><th data-key="d2024">2024</th>
+          <th data-key="ciudad">Ciudad</th><th data-key="depto">Depto.</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">El programa UAO se muestra resaltado y se conserva visible, pero se excluye de todos los cálculos estadísticos y percentiles (FLAG_PROGRAMA).</p>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <table id="caract-table">
+      <thead><tr><th>Atributo</th><th>Programa UAO (propuesto)</th><th>Referencia del mercado</th><th>Posición</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION C ============================================================ -->
+<section id="benchmark">
+  <div class="section-head">
+
+    <div class="section-title">C. Comparativo Nacional</div>
+    <div class="section-q">Distribución de la oferta nacional en modalidad, sector, geografía, duración, créditos, precio y demanda histórica</div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3 class="h">Distribución por modalidad</h3>
+      <div class="barlist" id="chart-modalidad"></div>
+    </div>
+    <div class="card">
+      <h3 class="h">Distribución por sector</h3>
+      <div class="barlist" id="chart-sector"></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px;">
+    <div class="card">
+      <h3 class="h">Distribución geográfica (departamento de oferta)</h3>
+      <div class="barlist" id="chart-geo"></div>
+    </div>
+    <div class="card">
+      <h3 class="h">Demanda histórica agregada 2020–2024</h3>
+      <div class="barlist-scroll">
+        <div class="barlist" id="chart-demanda"></div>
+      </div>
+      <p class="note">Suma de admitidos reportados por año. Valores nulos se excluyen del cálculo.</p>
+    </div>
+  </div>
+
+  <div class="grid grid-3" style="margin-top:16px;">
+    <div class="card">
+      <h3 class="h">Créditos — estadísticos</h3>
+      <div id="stats-creditos"></div>
+    </div>
+    <div class="card">
+      <h3 class="h">Precio semestral (COP) — estadísticos</h3>
+      <div id="stats-precio"></div>
+    </div>
+    <div class="card">
+      <h3 class="h">Duración (semestres) — estadísticos</h3>
+      <div id="stats-duracion"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION D ============================================================ -->
+<section id="denominacion">
+  <div class="section-head">
+    
+    <div class="section-title">D. Análisis Estratégico de la Denominación</div>
+    <div class="section-q">Diferenciación del nombre propuesto frente al vocabulario dominante del mercado nacional</div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3 class="h">D1–D2. Palabras clave más frecuentes y nube de palabras</h3>
+      <div class="cloud" id="wordcloud"></div>
+      <div class="barlist" id="chart-keywords" style="margin-top:14px;"></div>
+    </div>
+    <div class="card">
+      <h3 class="h">D3. Familias léxicas detectadas</h3>
+      <div class="barlist" id="chart-familias"></div>
+      <p class="note">Familias construidas por co-ocurrencia de palabras significativas (≥2 programas comparten el término), sin listas manuales.</p>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px;">
+    <div class="card">
+      <h3 class="h">D4. Distribución regional de las denominaciones</h3>
+      <div class="barlist" id="chart-regional"></div>
+    </div>
+    <div class="card">
+      <h3 class="h">D5. Demanda histórica por familia (2020–2024)</h3>
+      <div class="barlist" id="chart-demanda-familia"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3 class="h">D6. Oportunidades estratégicas detectadas automáticamente</h3>
+    <div id="opportunities-list"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3 class="h">D7. Diagnóstico ejecutivo</h3>
+    <div class="diag-grid">
+      <div class="diag-box diag-f"><h4>Fortalezas</h4><ul id="diag-f"></ul></div>
+      <div class="diag-box diag-d"><h4>Debilidades</h4><ul id="diag-d"></ul></div>
+      <div class="diag-box diag-o"><h4>Oportunidades</h4><ul id="diag-o"></ul></div>
+      <div class="diag-box diag-r"><h4>Riesgos</h4><ul id="diag-r"></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION E ============================================================ -->
+<section id="conclusiones">
+  <div class="section-head">
+    
+    <div class="section-title">E. Conclusiones</div>
+    <div class="section-q">Síntesis ejecutiva dirigida al Comité Curricular.</div>
+  </div>
+  <div class="card" id="conclusion-box" style="font-size:13.5px; line-height:1.8;"></div>
+</section>
+
+</div>
+
+
+</div><!-- /.main -->
+</div><!-- /.layout -->
+
+<script>
+/* ============================================================
+   0. DATOS DE ENTRADA
+   ============================================================ */
+const NATIONAL_DATA = [
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE ANTIOQUIA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 105944, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN CREACIÓN Y ESTUDIOS AUDIOVISUALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 2, "PERIODICIDAD": "Anual", "DEPARTAMENTO_OFERTA_PROGRAMA": "Antioquia", "MUNICIPIO_OFERTA_PROGRAMA": "Medellín", "2020": 19, "2021": 0, "2022": 0, "2023": 12, "2024": 0, "costo_real": 14007240, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DEL MAGDALENA - UNIMAGDALENA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 104931, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN ESCRITURAS AUDIOVISUALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Magdalena", "MUNICIPIO_OFERTA_PROGRAMA": "Santa Marta", "2020": 27, "2021": 0, "2022": 9, "2023": 5, "2024": 0, "costo_real": 7210000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DEL MAGDALENA - UNIMAGDALENA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 110204, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN PRODUCCION AUDIOVISUAL CREATIVA", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 40, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Magdalena", "MUNICIPIO_OFERTA_PROGRAMA": "Santa Marta", "2020": 0, "2021": 0, "2022": 14, "2023": 0, "2024": 19, "costo_real": 7210000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DEL VALLE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 106746, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN CULTURAS AUDIOVISUALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 54, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Santiago de Cali", "2020": 0, "2021": 0, "2022": 13, "2023": 0, "2024": 15, "costo_real": 11600261, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD ICESI", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116134, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN CREACIÓN LITERARIA Y NARRATIVAS DIGITALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 37, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Santiago de Cali", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 36, "costo_real": 8610000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE LA SABANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 117080, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN INNOVACIÓN EN INDUSTRIAS AUDIOVISUALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial-Virtual", "NÚMERO_CRÉDITOS": 36, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Cundinamarca", "MUNICIPIO_OFERTA_PROGRAMA": "Chía", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 14113000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAFIT-", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 103484, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN COMUNICACIÓN TRANSMEDIA", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 40, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Antioquia", "MUNICIPIO_OFERTA_PROGRAMA": "Medellín", "2020": 18, "2021": 21, "2022": 19, "2023": 7, "2024": 8, "costo_real": 13885451, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EL BOSQUE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 105762, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN DISEÑO PARA INDUSTRIAS CREATIVAS Y CULTURALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 40, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 7, "2021": 5, "2022": 7, "2023": 9, "2024": 10, "costo_real": 10336000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD PONTIFICIA BOLIVARIANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 108322, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN INDUSTRIAS CREATIVAS Y CULTURALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 42, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Antioquia", "MUNICIPIO_OFERTA_PROGRAMA": "Medellín", "2020": 0, "2021": 14, "2022": 12, "2023": 5, "2024": 0, "costo_real": 13914012, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "PONTIFICIA UNIVERSIDAD JAVERIANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 117187, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN COMUNICACIÓN Y CREACIÓN INTERACTIVA", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 36, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Santiago de Cali", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 7950000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE BOYACA UNIBOYACA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116941, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN COMUNICACIÓN DIGITAL ESTRATÉGICA", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 39, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Boyacá", "MUNICIPIO_OFERTA_PROGRAMA": "Tunja", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 5300000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE CALDAS", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 52659, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN DISEÑO Y CREACION INTERACTIVA", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 50, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Caldas", "MUNICIPIO_OFERTA_PROGRAMA": "Manizales", "2020": 6, "2021": 3, "2022": 4, "2023": 3, "2024": 6, "costo_real": 11380887, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "FUNDACION UNIVERSIDAD DE BOGOTA - JORGE TADEO LOZANO", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 107976, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GENERACION Y GESTION DE CONTENIDOS DIGITALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 36, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 14, "2021": 14, "2022": 15, "2023": 6, "2024": 20, "costo_real": "$ 9,321,000", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "FUNDACION UNIVERSIDAD DE BOGOTA - JORGE TADEO LOZANO", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 106154, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GESTIÓN Y PRODUCCIÓN CULTURAL Y AUDIOVISUAL", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 36, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 69, "2021": 30, "2022": 56, "2023": 19, "2024": 56, "costo_real": "$ 9,321,000", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD NACIONAL DE COLOMBIA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 16889, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN ARTES PLASTICAS Y VISUALES", "RECONOCIMIENTO_DEL_MINISTERIO": "N/A", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 68, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 2, "2021": 8, "2022": 2, "2023": 16, "2024": 2, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "CORPORACION UNIVERSIDAD DE LA COSTA CUC", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116290, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 42, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Atlántico", "MUNICIPIO_OFERTA_PROGRAMA": "Barranquilla", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 972010, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "CORPORACION UNIVERSIDAD DE LA COSTA CUC", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116289, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 42, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Atlántico", "MUNICIPIO_OFERTA_PROGRAMA": "Barranquilla", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 10, "costo_real": 972010, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "CORPORACION UNIVERSIDAD PILOTO DE COLOMBIA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 108318, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 46, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Cuatrimestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 23, "2021": 31, "2022": 35, "2023": 0, "2024": 23, "costo_real": 14076720, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "CORPORACION UNIVERSITARIA MINUTO DE DIOS -UNIMINUTO-", "CARÁCTER_ACADÉMICO": "Institución Universitaria/Escuela Tecnológica", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 118026, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 42, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 7583800, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "POLITECNICO GRANCOLOMBIANO", "CARÁCTER_ACADÉMICO": "Institución Universitaria/Escuela Tecnológica", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 111342, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 43, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 7564000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD AUTONOMA DE BUCARAMANGA-UNAB-", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 117982, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 36, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Santander", "MUNICIPIO_OFERTA_PROGRAMA": "Bucaramanga", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 10401372, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD CATOLICA DE PEREIRA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 109396, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTION DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 52, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Risaralda", "MUNICIPIO_OFERTA_PROGRAMA": "Pereira", "2020": 0, "2021": 12, "2022": 18, "2023": 15, "2024": 0, "costo_real": 11264000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD CENTRAL", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 118535, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 42, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Periodos", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD CESMAG - UNICESMAG", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 118032, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 52, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Nariño", "MUNICIPIO_OFERTA_PROGRAMA": "Pasto", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 7735000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE BOYACA UNIBOYACA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 118170, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 54, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Boyacá", "MUNICIPIO_OFERTA_PROGRAMA": "Tunja", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE BOYACA UNIBOYACA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 106938, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 54, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Boyacá", "MUNICIPIO_OFERTA_PROGRAMA": "Tunja", "2020": 24, "2021": 8, "2022": 4, "2023": 9, "2024": 10, "costo_real": 8600000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE LA AMAZONIA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 110598, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN Y EVALUACIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 55, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Caquetá", "MUNICIPIO_OFERTA_PROGRAMA": "Florencia", "2020": 0, "2021": 0, "2022": 17, "2023": 0, "2024": 0, "costo_real": 10473000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE SAN BUENAVENTURA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 105760, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 44, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Santiago de Cali", "2020": 6, "2021": 10, "2022": 4, "2023": 12, "2024": 4, "costo_real": 14522075, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE SANTANDER - UDES", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116143, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA ESTRATÉGICA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 40, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Santander", "MUNICIPIO_OFERTA_PROGRAMA": "Bucaramanga", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 9703700, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DE SUCRE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 117017, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 50, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Sucre", "MUNICIPIO_OFERTA_PROGRAMA": "Sincelejo", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DEL CAUCA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 103477, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN DE ORGANIZACIONES Y PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 54, "NÚMERO_PERIODOS_DE_DURACIÓN": 2, "PERIODICIDAD": "Anual", "DEPARTAMENTO_OFERTA_PROGRAMA": "Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Popayán", "2020": 0, "2021": 19, "2022": 0, "2023": 13, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DEL VALLE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 106925, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 45, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Palmira", "2020": 86, "2021": 50, "2022": 52, "2023": 38, "2024": 35, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD DISTRITAL-FRANCISCO JOSE DE CALDAS", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 110626, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA INTEGRAL DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 56, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAFIT-", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 102161, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Híbrida (Presencial-Virtual)", "NÚMERO_CRÉDITOS": 38, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Antioquia", "MUNICIPIO_OFERTA_PROGRAMA": "Medellín", "2020": 51, "2021": 46, "2022": 75, "2023": 66, "2024": 148, "costo_real": 12307889, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAFIT-", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 106704, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 39, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Risaralda", "MUNICIPIO_OFERTA_PROGRAMA": "Pereira", "2020": 20, "2021": 35, "2022": 19, "2023": 33, "2024": 38, "costo_real": 9895177, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAFIT-", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116985, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 43, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Popayán", "2020": 0, "2021": 20, "2022": 24, "2023": 26, "2024": 21, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAFIT-", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 109479, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 43, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 20, "2022": 24, "2023": 26, "2024": 21, "costo_real": 11993517, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 102963, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 51, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Huila", "MUNICIPIO_OFERTA_PROGRAMA": "Neiva", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 102868, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 51, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bolívar", "MUNICIPIO_OFERTA_PROGRAMA": "Cartagena de Indias", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 54451, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 51, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 103601, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 51, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Santander", "MUNICIPIO_OFERTA_PROGRAMA": "Bucaramanga", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 108923, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 92, "2021": 148, "2022": 159, "2023": 135, "2024": 51, "costo_real": 10920000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 107970, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 43, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bolívar", "MUNICIPIO_OFERTA_PROGRAMA": "Cartagena de Indias", "2020": 17, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 106735, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 43, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 95, "2021": 74, "2022": 96, "2023": 131, "2024": 70, "costo_real": 15636000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EAN", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 116244, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 43, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 47, "costo_real": 11808000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD ECCI", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 117688, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 46, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 7697059, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EL BOSQUE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 111639, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA ORGANIZACIONAL DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 9334000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD EL BOSQUE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 109976, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA ORGANIZACIONAL DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 0, "2022": 48, "2023": 44, "2024": 35, "costo_real": 10372000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD ICESI", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 105984, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial-Virtual", "NÚMERO_CRÉDITOS": 45, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Santiago de Cali", "2020": 33, "2021": 33, "2022": 60, "2023": 55, "2024": 50, "costo_real": 18110384, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD INDUSTRIAL DE SANTANDER", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 105934, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN EVALUACIÓN Y GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 52, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Santander", "MUNICIPIO_OFERTA_PROGRAMA": "Barrancabermeja", "2020": 9, "2021": 7, "2022": 0, "2023": 0, "2024": 0, "costo_real": 16707620, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD INDUSTRIAL DE SANTANDER", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 105931, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN EVALUACIÓN Y GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 52, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 8, "2022": 0, "2023": 0, "2024": 0, "costo_real": 12216248, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD INDUSTRIAL DE SANTANDER", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 105932, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN EVALUACIÓN Y GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 50, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Norte de Santander", "MUNICIPIO_OFERTA_PROGRAMA": "San José de Cúcuta", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 0, "costo_real": 16707620, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD INDUSTRIAL DE SANTANDER", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 105935, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN EVALUACIÓN Y GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 52, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Santander", "MUNICIPIO_OFERTA_PROGRAMA": "Bucaramanga", "2020": 11, "2021": 0, "2022": 13, "2023": 12, "2024": 19, "costo_real": 12216248, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD MILITAR-NUEVA GRANADA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 110013, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA INTEGRAL DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 0, "2021": 36, "2022": 50, "2023": 41, "2024": 23, "costo_real": 11482000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD NACIONAL ABIERTA Y A DISTANCIA UNAD", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 108000, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 2, "PERIODICIDAD": "Anual", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bogotá, D.C.", "MUNICIPIO_OFERTA_PROGRAMA": "Bogotá, D.C.", "2020": 54, "2021": 105, "2022": 36, "2023": 73, "2024": 127, "costo_real": 8214000, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD PEDAGOGICA Y TECNOLOGICA DE COLOMBIA - UPTC", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 108307, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN ESTRATÉGICA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Híbrida (Presencial-Virtual)", "NÚMERO_CRÉDITOS": 52, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Boyacá", "MUNICIPIO_OFERTA_PROGRAMA": "Duitama", "2020": 26, "2021": 13, "2022": 3, "2023": 3, "2024": 9, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD PONTIFICIA BOLIVARIANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 107056, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 47, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Palmira", "2020": 0, "2021": 15, "2022": 44, "2023": 18, "2024": 6, "costo_real": "Sin información", "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD PONTIFICIA BOLIVARIANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 106639, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 40, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Antioquia", "MUNICIPIO_OFERTA_PROGRAMA": "Medellín", "2020": 18, "2021": 13, "2022": 24, "2023": 12, "2024": 2, "costo_real": 15255806, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD PONTIFICIA BOLIVARIANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 111227, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 40, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Antioquia", "MUNICIPIO_OFERTA_PROGRAMA": "Medellín", "2020": 0, "2021": 0, "2022": 0, "2023": 23, "2024": 90, "costo_real": 12545429, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD SANTO TOMAS", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 107172, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN DIRECCIÓN Y GESTIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Virtual", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Santander", "MUNICIPIO_OFERTA_PROGRAMA": "Bucaramanga", "2020": 135, "2021": 127, "2022": 113, "2023": 103, "2024": 106, "costo_real": 5943121, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD SURCOLOMBIANA", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 105844, "NOMBRE_DEL_PROGRAMA": "MAESTRIA EN GERENCIA INTEGRAL DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 48, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Huila", "MUNICIPIO_OFERTA_PROGRAMA": "Neiva", "2020": 33, "2021": 21, "2022": 15, "2023": 13, "2024": 20, "costo_real": 13464887, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD TECNOLOGICA DE BOLIVAR", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": 103259, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GERENCIA DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 50, "NÚMERO_PERIODOS_DE_DURACIÓN": 2, "PERIODICIDAD": "Anual", "DEPARTAMENTO_OFERTA_PROGRAMA": "Bolívar", "MUNICIPIO_OFERTA_PROGRAMA": "Cartagena de Indias", "2020": 0, "2021": 16, "2022": 24, "2023": 2, "2024": 34, "costo_real": 13400257, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD TECNOLOGICA DE PEREIRA - UTP", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Oficial", "CÓDIGO_SNIES_DEL_PROGRAMA": 116139, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN Y DIRECCIÓN DE PROYECTOS", "RECONOCIMIENTO_DEL_MINISTERIO": "Registro calificado", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial", "NÚMERO_CRÉDITOS": 53, "NÚMERO_PERIODOS_DE_DURACIÓN": 4, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Risaralda", "MUNICIPIO_OFERTA_PROGRAMA": "Pereira", "2020": 0, "2021": 0, "2022": 0, "2023": 0, "2024": 2, "costo_real": 10686926, "FLAG_PROGRAMA": null },
+{ "NOMBRE_INSTITUCIÓN": "UNIVERSIDAD AUTONOMA DE OCCIDENTE", "CARÁCTER_ACADÉMICO": "Universidad", "SECTOR": "Privado", "CÓDIGO_SNIES_DEL_PROGRAMA": null, "NOMBRE_DEL_PROGRAMA": "MAESTRÍA EN GESTIÓN E INNOVACIÓN DE PROYECTOS AUDIOVISUALES", "RECONOCIMIENTO_DEL_MINISTERIO": "Propuesto", "NIVEL_DE_FORMACIÓN": "Maestría", "MODALIDAD": "Presencial-Virtual", "NÚMERO_CRÉDITOS": 42, "NÚMERO_PERIODOS_DE_DURACIÓN": 3, "PERIODICIDAD": "Semestral", "DEPARTAMENTO_OFERTA_PROGRAMA": "Valle del Cauca", "MUNICIPIO_OFERTA_PROGRAMA": "Santiago de Cali", "costo_real": "Sin información", "2020": null, "2021": null, "2022": null, "2023": null, "2024": null, "FLAG_PROGRAMA": "uao" }
+];
+
+const REGION_DEPTS = ['Valle del Cauca','Cauca','Risaralda','Quindío','Caldas'];
+
+/* ============================================================
+   1. UTILIDADES
+   ============================================================ */
+const isUAO = r => r.FLAG_PROGRAMA === 'uao';
+const bench = NATIONAL_DATA.filter(r => !isUAO(r));
+const uao = NATIONAL_DATA.find(isUAO);
+const YEARS = ['2020','2021','2022','2023','2024'];
+
+function numOrNull(v){
+  if(v === null || v === undefined) return null;
+  if(typeof v === 'number') return v;
+  if(typeof v === 'string'){
+    const t = v.trim().toUpperCase();
+    if(t === 'N/A' || t === '') return null;
+    const n = Number(t.replace(/[.,]/g,''));
+    return isNaN(n) ? null : n;
+  }
+  return null;
+}
+function precio(r){ return numOrNull(r.costo_real); }
+function demandaTotal(r){
+  let sum = 0, any = false;
+  YEARS.forEach(y=>{ const v = numOrNull(r[y]); if(v!==null){ sum+=v; any=true; } });
+  return any ? sum : null;
+}
+function mean(arr){ return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null; }
+function median(arr){
+  if(!arr.length) return null;
+  const s=[...arr].sort((a,b)=>a-b); const m=Math.floor(s.length/2);
+  return s.length%2 ? s[m] : (s[m-1]+s[m])/2;
+}
+function stdev(arr){
+  if(arr.length<2) return null;
+  const m = mean(arr);
+  return Math.sqrt(arr.reduce((a,b)=>a+(b-m)**2,0)/(arr.length-1));
+}
+function percentileOf(value, arr){
+  if(value===null || !arr.length) return null;
+  const below = arr.filter(v=>v<value).length;
+  return Math.round((below/arr.length)*100);
+}
+function fmtCOP(n){ return n===null ? 'Sin información' : '$'+Math.round(n).toLocaleString('es-CO'); }
+function fmtNum(n, d=1){ return n===null ? '—' : (Number.isInteger(n)?n:n.toFixed(d)); }
+function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+const STOPWORDS = new Set(['DE','EN','Y','LA','EL','LOS','LAS','DEL','A','CON','PARA','UNIVERSITARIA','ESPECIALIZACION','ESPECIALIZACIÓN','ESPECIALIZACION.','MAESTRIA','MAESTRIAS']);
+function normalizeText(s){
+  return s.toUpperCase()
+    .replace(/[ÁÀÄÂ]/g,'A').replace(/[ÉÈËÊ]/g,'E').replace(/[ÍÌÏÎ]/g,'I')
+    .replace(/[ÓÒÖÔ]/g,'O').replace(/[ÚÙÜÛ]/g,'U').replace(/[^A-Z0-9\s]/g,' ');
+}
+function tokenize(name){
+  return normalizeText(name).split(/\s+/).filter(w=>w.length>2 && !STOPWORDS.has(w));
+}
+
+/* ============================================================
+   2. CÁLCULOS BASE
+   ============================================================ */
+const creditosBench = bench.map(r=>numOrNull(r.NÚMERO_CRÉDITOS)).filter(v=>v!==null);
+const duracionBench = bench.map(r=>numOrNull(r.NÚMERO_PERIODOS_DE_DURACIÓN)).filter(v=>v!==null);
+const precioBench = bench.map(precio).filter(v=>v!==null);
+const demandaBench = bench.map(demandaTotal).filter(v=>v!==null);
+
+function statsBlock(arr, fmt){
+  return {
+    n: arr.length, min: fmt(Math.min(...arr)), max: fmt(Math.max(...arr)),
+    mean: fmt(mean(arr)), median: fmt(median(arr)), sd: arr.length>1? fmt(stdev(arr)) : '—'
+  };
+}
+function renderStats(elId, arr, fmt){
+  const s = statsBlock(arr, fmt);
+  document.getElementById(elId).innerHTML = `
+    <div class="barlist">
+      <div class="barrow" style="grid-template-columns:1fr auto;"><span class="label">Mínimo</span><span class="num">${s.min}</span></div>
+      <div class="barrow" style="grid-template-columns:1fr auto;"><span class="label">Máximo</span><span class="num">${s.max}</span></div>
+      <div class="barrow" style="grid-template-columns:1fr auto;"><span class="label">Promedio</span><span class="num">${s.mean}</span></div>
+      <div class="barrow" style="grid-template-columns:1fr auto;"><span class="label">Mediana</span><span class="num">${s.median}</span></div>
+      <div class="barrow" style="grid-template-columns:1fr auto;"><span class="label">Desv. estándar</span><span class="num">${s.sd}</span></div>
+      <div class="barrow" style="grid-template-columns:1fr auto;"><span class="label">n (excluye UAO)</span><span class="num">${s.n}</span></div>
+    </div>`;
+}
+renderStats('stats-creditos', creditosBench, v=>fmtNum(v));
+renderStats('stats-precio', precioBench, v=>fmtCOP(v));
+renderStats('stats-duracion', duracionBench, v=>fmtNum(v));
+
+/* ============================================================
+   3. KPIs (A)
+   ============================================================ */
+document.getElementById('m-n').textContent = bench.length + ' programas';
+document.getElementById('foot-n').textContent = bench.length;
+const modalidadesCount = {};
+bench.forEach(r=>{ modalidadesCount[r.MODALIDAD] = (modalidadesCount[r.MODALIDAD]||0)+1; });
+const pctCredPos = percentileOf(uao.NÚMERO_CRÉDITOS, creditosBench);
+const pctDurPos = percentileOf(uao.NÚMERO_PERIODOS_DE_DURACIÓN, duracionBench);
+const nombresConTerm = w => bench.filter(r=>tokenize(r.NOMBRE_DEL_PROGRAMA).includes(w)).length;
+/* términos clave derivados dinámicamente de la denominación propuesta */
+const audiovisualExacto = bench.filter(r=>normalizeText(r.NOMBRE_DEL_PROGRAMA).includes('AUDIOVISUAL')).length;
+const proyectosExacto = bench.filter(r=>normalizeText(r.NOMBRE_DEL_PROGRAMA).includes('PROYECTOS')).length;
+const innovacionExacto = bench.filter(r=>normalizeText(r.NOMBRE_DEL_PROGRAMA).includes('INNOVACION')).length;
+const gestionExacto = bench.filter(r=>normalizeText(r.NOMBRE_DEL_PROGRAMA).includes('GESTION')).length;
+/* combinación exacta que propone UAO: gestión/gerencia de PROYECTOS + AUDIOVISUAL en el mismo nombre */
+const comboProyectosAudiovisual = bench.filter(r=>{
+  const n = normalizeText(r.NOMBRE_DEL_PROGRAMA);
+  return n.includes('PROYECTOS') && n.includes('AUDIOVISUAL');
+}).length;
+const comboInnovacionAudiovisual = bench.filter(r=>{
+  const n = normalizeText(r.NOMBRE_DEL_PROGRAMA);
+  return n.includes('INNOVACION') && n.includes('AUDIOVISUAL');
+}).length;
+const kpiColors = ['','c-blue','c-good','c-gold','c-purple'];
+
+const kpis = [
+  {lbl:'Programas comparables (SNIES)', val: bench.length, foot:'Maestrías afines registradas (audiovisual + gerencia de proyectos)'},
+  {lbl:'Contienen "AUDIOVISUAL" en el nombre', val: audiovisualExacto, foot: audiovisualExacto+' de '+bench.length+' programas analizados'},
+  {lbl:'Combinan "PROYECTOS" + "AUDIOVISUAL"', val: comboProyectosAudiovisual, foot: comboProyectosAudiovisual===0 ? 'Combinación sin precedente directo en el conjunto analizado' : comboProyectosAudiovisual+' coincidencia(s)'},
+  {lbl:'Percentil de créditos ('+uao.NÚMERO_CRÉDITOS+' vs. oferta nacional)', val: pctCredPos+'%', foot:'Percentil dentro de la distribución nacional de créditos'}
+];
+document.getElementById('kpi-grid').innerHTML = kpis.map((k,i)=>`
+  <div class="card kpi ${kpiColors[i%kpiColors.length]}"><div class="lbl">${k.lbl}</div><div class="val">${k.val}</div><div class="foot">${k.foot}</div></div>
+`).join('');
+
+const findings = [];
+findings.push({c:'blue', ico:'1️⃣', p:`Se incluyen <b>${bench.length} maestrías</b> afines, entre programas de creación/narrativas audiovisuales y programas de gerencia o gestión de proyectos, ninguno ofrecido en modalidad idéntica a la propuesta (Presencial-Virtual).`});
+findings.push({c:'good', ico:'2️⃣', p: comboProyectosAudiovisual===0
+  ? `Ningún programa del conjunto analizado combina los términos <b>"Proyectos"</b> y <b>"Audiovisual"</b> en su denominación: los programas de gerencia de proyectos son genéricos (sin foco audiovisual) y los programas audiovisuales no usan el término "proyectos", lo que representa un espacio de diferenciación léxica no ocupado.`
+  : `La combinación de los términos "Proyectos" y "Audiovisual" aparece en ${comboProyectosAudiovisual} programas del conjunto analizado.`});
+findings.push({c:'gold', ico:'3️⃣', p:`La palabra <b>"AUDIOVISUAL"</b> aparece en ${audiovisualExacto} de ${bench.length} programas (${Math.round(audiovisualExacto/bench.length*100)}%), y el término <b>"PROYECTOS"</b> en ${proyectosExacto} (${Math.round(proyectosExacto/bench.length*100)}%); ambos son de alta competencia directa, pero rara vez conviven en un mismo nombre.`});
+findings.push({c:'blue', ico:'4️⃣', p:`Con <b>${uao.NÚMERO_CRÉDITOS} créditos</b>, el programa propuesto se sitúa en el percentil ${pctCredPos} de la distribución nacional de créditos (mediana: ${fmtNum(median(creditosBench))}).`});
+document.getElementById('findings-list').innerHTML = findings.map(f=>`
+  <div class="insight ${f.c}"><div class="ico">${f.ico}</div><div class="content"><p>${f.p}</p></div></div>`).join('');
+
+/* ============================================================
+   4. CARACTERIZACIÓN (B)
+   ============================================================ */
+const modalidadDominante = Object.entries(modalidadesCount).sort((a,b)=>b[1]-a[1])[0];
+const sectorDominante = (()=>{ const c={}; bench.forEach(r=>c[r.SECTOR]=(c[r.SECTOR]||0)+1); return Object.entries(c).sort((a,b)=>b[1]-a[1])[0]; })();
+const caractRows = [
+  ['Modalidad', uao.MODALIDAD, `${modalidadDominante[0]} domina la oferta nacional (${modalidadDominante[1]}/${bench.length})`, uao.MODALIDAD===modalidadDominante[0] ? 'Alineado' : 'Diferenciado — mercado dominado por otra modalidad'],
+  ['Duración', uao.NÚMERO_PERIODOS_DE_DURACIÓN+' semestres', `Mediana: ${fmtNum(median(duracionBench))} semestres`, uao.NÚMERO_PERIODOS_DE_DURACIÓN<=median(duracionBench) ? 'Igual o más corto que la mediana' : 'Más largo que la mediana'],
+  ['Créditos', uao.NÚMERO_CRÉDITOS, `Mediana: ${fmtNum(median(creditosBench))} · Rango: ${Math.min(...creditosBench)}–${Math.max(...creditosBench)}`, `Percentil ${pctCredPos}`],
+  ['Sector', uao.SECTOR, `${sectorDominante[0]} es el sector predominante (${sectorDominante[1]}/${bench.length})`, uao.SECTOR===sectorDominante[0] ? 'Alineado' : 'Diferenciado'],
+  ['Acreditación', uao.RECONOCIMIENTO_DEL_MINISTERIO, 'Todos los programas analizados cuentan con Registro calificado', 'Pendiente'],
+  ['Precio semestral', fmtCOP(precio(uao)), `Mediana: ${fmtCOP(median(precioBench))}`, 'Sin dato para comparar'],
+  ['Demanda histórica 2020–2024', 'Sin datos (programa propuesto)', `Mediana nacional: ${fmtNum(median(demandaBench))} admitidos acumulados`, 'No aplica — programa nuevo'],
+];
+document.querySelector('#caract-table tbody').innerHTML = caractRows.map(r=>`
+  <tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td><span class="badge badge-slate">${r[3]}</span></td></tr>
+`).join('');
+
+/* ============================================================
+   5. COMPARATIVO NACIONAL — GRÁFICOS (C)
+   ============================================================ */
+function renderBarlist(elId, entries, colorClass='slate', maxVal=null){
+  const max = maxVal || Math.max(...entries.map(e=>e[1]),1);
+  document.getElementById(elId).innerHTML = entries.map(([label,val])=>`
+    <div class="barrow">
+      <span class="label" title="${escapeHtml(label)}">${escapeHtml(label)}</span>
+      <div class="bartrack"><div class="barfill ${colorClass}" style="width:${(val/max*100).toFixed(1)}%"></div></div>
+      <span class="num">${val}</span>
+    </div>`).join('');
+}
+
+renderBarlist('chart-modalidad', Object.entries(modalidadesCount).sort((a,b)=>b[1]-a[1]));
+
+const sectorCount = {}; bench.forEach(r=>sectorCount[r.SECTOR]=(sectorCount[r.SECTOR]||0)+1);
+renderBarlist('chart-sector', Object.entries(sectorCount).sort((a,b)=>b[1]-a[1]), 'gold');
+
+const geoCount = {}; bench.forEach(r=>geoCount[r.DEPARTAMENTO_OFERTA_PROGRAMA]=(geoCount[r.DEPARTAMENTO_OFERTA_PROGRAMA]||0)+1);
+renderBarlist('chart-geo', Object.entries(geoCount).sort((a,b)=>b[1]-a[1]));
+
+const demandaPorPrograma = bench.map(r=>[r.NOMBRE_INSTITUCIÓN, demandaTotal(r)]).filter(e=>e[1]!==null).sort((a,b)=>b[1]-a[1]);
+renderBarlist('chart-demanda', demandaPorPrograma, 'wine');
+
+/* Ranking table */
+function buildRankingRows(){
+  return NATIONAL_DATA.map(r=>({
+    inst:r.NOMBRE_INSTITUCIÓN, nombre:r.NOMBRE_DEL_PROGRAMA, modalidad:r.MODALIDAD, creditos:numOrNull(r.NÚMERO_CRÉDITOS),
+    duracion:numOrNull(r.NÚMERO_PERIODOS_DE_DURACIÓN), precio:precio(r),
+    d2020:numOrNull(r['2020']), d2021:numOrNull(r['2021']), d2022:numOrNull(r['2022']), d2023:numOrNull(r['2023']), d2024:numOrNull(r['2024']),
+    ciudad:r.MUNICIPIO_OFERTA_PROGRAMA, depto:r.DEPARTAMENTO_OFERTA_PROGRAMA, uao:isUAO(r)
+  }));
+}
+let rankingRows = buildRankingRows();
+function renderRanking(sortKey='creditos', dir=-1){
+  const rows=[...rankingRows].sort((a,b)=>{
+    const av=a[sortKey], bv=b[sortKey];
+    if(av===null) return 1; if(bv===null) return -1;
+    if(typeof av==='string') return dir*av.localeCompare(bv);
+    return dir*(av-bv);
+  });
+  document.querySelector('#ranking-table tbody').innerHTML = rows.map(r=>`
+    <tr class="${r.uao?'uao-row':''}">
+      <td>${escapeHtml(r.inst)}${r.uao?' <span class="badge badge-wine">Propuesto UAO</span>':''}</td>
+      <td>${escapeHtml(r.nombre)}</td>
+      <td>${r.modalidad}</td><td>${r.creditos ?? '—'}</td><td>${r.duracion ?? '—'}</td>
+      <td>${r.precio!==null?fmtCOP(r.precio):'Sin información'}</td>
+      <td>${r.d2020 ?? '—'}</td><td>${r.d2021 ?? '—'}</td><td>${r.d2022 ?? '—'}</td><td>${r.d2023 ?? '—'}</td><td>${r.d2024 ?? '—'}</td>
+      <td>${r.ciudad}</td><td>${r.depto}</td>
+    </tr>`).join('');
+}
+renderRanking();
+let curSort={key:'creditos',dir:-1};
+document.querySelectorAll('#ranking-table th').forEach(th=>{
+  if(th.dataset.key===curSort.key) th.classList.add('sorted');
+  th.addEventListener('click',()=>{
+    const key=th.dataset.key;
+    curSort.dir = (curSort.key===key) ? -curSort.dir : -1;
+    curSort.key = key;
+    document.querySelectorAll('#ranking-table th').forEach(t=>t.classList.remove('sorted','asc'));
+    th.classList.add('sorted');
+    if(curSort.dir===1) th.classList.add('asc');
+    renderRanking(key,curSort.dir);
+  });
+});
+
+/* ============================================================
+   6. ANÁLISIS DE DENOMINACIÓN (D)
+   ============================================================ */
+/* D1/D2 — frecuencia de palabras y nube */
+const allTokensPerProgram = NATIONAL_DATA.map(r=>({row:r, tokens: tokenize(r.NOMBRE_DEL_PROGRAMA)}));
+const freq = {};
+allTokensPerProgram.forEach(p=> new Set(p.tokens).forEach(t=> freq[t]=(freq[t]||0)+1 ));
+const freqSorted = Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+renderBarlist('chart-keywords', freqSorted.slice(0,10));
+
+const maxFreq = freqSorted[0][1];
+document.getElementById('wordcloud').innerHTML = freqSorted.slice(0,18).map(([w,c])=>{
+  const size = 12.5 + (c/maxFreq)*11.5;
+  const isUaoWord = tokenize(uao.NOMBRE_DEL_PROGRAMA).includes(w);
+  return `<span class="${isUaoWord?'uao':''}" style="font-size:${size}px">${w}</span>`;
+}).join('');
+
+/* D3 — familias léxicas por término distintivo dominante (evita colapso por palabras puente genéricas) */
+const n = NATIONAL_DATA.length;
+const GENERIC_CEILING = Math.max(2, Math.round(n*0.15));
+const distinctiveTokens = allTokensPerProgram.map(p=>p.tokens.filter(t=>freq[t]<=GENERIC_CEILING));
+function familyKey(i){
+  const toks = distinctiveTokens[i].length ? distinctiveTokens[i] : allTokensPerProgram[i].tokens;
+  if(!toks.length) return 'SIN_CLASIFICAR';
+  return [...toks].sort((a,b)=>freq[a]-freq[b])[0];
+}
+const familiesMap = {};
+for(let i=0;i<n;i++){
+  const key = familyKey(i);
+  (familiesMap[key] = familiesMap[key] || []).push(i);
+}
+const families = Object.entries(familiesMap).map(([key,idxs])=>{
+  const rows = idxs.map(i=>NATIONAL_DATA[i]);
+  const label = key.charAt(0)+key.slice(1).toLowerCase();
+  return {label, rows, hasUAO: rows.some(isUAO)};
+}).sort((a,b)=>b.rows.length-a.rows.length);
+
+renderBarlist('chart-familias', families.map(f=>[f.label + (f.hasUAO?' (incluye propuesta UAO)':''), f.rows.length]), 'wine');
+
+/* D4 — distribución regional */
+renderBarlist('chart-regional', Object.entries(geoCount).sort((a,b)=>b[1]-a[1]), 'gold');
+
+/* D5 — demanda histórica por familia */
+const demandaFamilia = families.map(f=>{
+  const vals = f.rows.filter(r=>!isUAO(r)).map(demandaTotal).filter(v=>v!==null);
+  return [f.label, vals.length ? Math.round(mean(vals)) : 0];
+}).sort((a,b)=>b[1]-a[1]);
+renderBarlist('chart-demanda-familia', demandaFamilia, 'slate');
+
+/* D7 — similitud */
+function jaccard(a,b){
+  const A=new Set(a), B=new Set(b);
+  const inter=[...A].filter(x=>B.has(x)).length;
+  const union=new Set([...A,...B]).size;
+  return union? inter/union : 0;
+}
+function bigrams(tokens){ const g=[]; for(let i=0;i<tokens.length-1;i++) g.push(tokens[i]+'_'+tokens[i+1]); return g; }
+function cosineTFIDF(tokensA, tokensB, corpusDocsTokens){
+  const vocab = new Set([...tokensA,...tokensB]);
+  const N = corpusDocsTokens.length;
+  function tf(tokens,term){ return tokens.filter(t=>t===term).length; }
+  function idf(term){ const df = corpusDocsTokens.filter(doc=>doc.includes(term)).length || 1; return Math.log(N/df + 1); }
+  let dot=0, magA=0, magB=0;
+  vocab.forEach(term=>{
+    const wA = tf(tokensA,term)*idf(term);
+    const wB = tf(tokensB,term)*idf(term);
+    dot += wA*wB; magA += wA*wA; magB += wB*wB;
+  });
+  return (magA&&magB) ? dot/(Math.sqrt(magA)*Math.sqrt(magB)) : 0;
+}
+const corpusTokens = NATIONAL_DATA.map(r=>tokenize(r.NOMBRE_DEL_PROGRAMA));
+const uaoTokens = tokenize(uao.NOMBRE_DEL_PROGRAMA);
+const uaoBigrams = bigrams(uaoTokens);
+
+const similarityRows = bench.map(r=>{
+  const t = tokenize(r.NOMBRE_DEL_PROGRAMA);
+  const jac = jaccard(uaoTokens, t);
+  const cos = cosineTFIDF(uaoTokens, t, corpusTokens);
+  const big = jaccard(uaoBigrams, bigrams(t));
+  const wordMatch = uaoTokens.filter(w=>t.includes(w)).length / uaoTokens.length;
+  const combined = (jac+cos+big+wordMatch)/4;
+  return {inst:r.NOMBRE_INSTITUCIÓN, nombre:r.NOMBRE_DEL_PROGRAMA, jac,cos,big,wordMatch,combined};
+}).sort((a,b)=>b.combined-a.combined);
+
+/* percentil de créditos (usado en D10/D11) */
+const pctCred = percentileOf(uao.NÚMERO_CRÉDITOS, creditosBench);
+
+/* D10 — oportunidades */
+const opportunities = [];
+if(comboProyectosAudiovisual===0) opportunities.push(`Ningún programa combina los términos <b>"Proyectos"</b> y <b>"Audiovisual"</b> en su denominación: constituye una combinación léxica sin ocupar dentro de la muestra analizada.`);
+const nichoFamilias = families.filter(f=>f.rows.length===1 && !f.hasUAO);
+if(nichoFamilias.length) opportunities.push(`Se detectan ${nichoFamilias.length} familias representadas por un único programa (${nichoFamilias.map(f=>f.label).join(', ')}), lo que sugiere segmentos de baja saturación.`);
+const regionesRepresentadas = new Set(bench.map(r=>r.DEPARTAMENTO_OFERTA_PROGRAMA));
+const regionesUAOSinOferta = REGION_DEPTS.filter(d=>!regionesRepresentadas.has(d));
+if(regionesUAOSinOferta.length) opportunities.push(`Dentro de la región de interés (Suroccidente + Eje Cafetero), los departamentos ${regionesUAOSinOferta.join(', ')} no registran oferta en el conjunto analizado, mientras que Valle del Cauca concentra ${geoCount['Valle del Cauca']||0} programas.`);
+opportunities.push(`La modalidad híbrida (Presencial-Virtual) propuesta coincide con ${modalidadesCount['Presencial-Virtual']||0} de ${bench.length} programas del conjunto analizado, diferenciándose de la oferta mayoritariamente ${modalidadDominante[0].toLowerCase()}.`);
+const oppColors = ['good','blue','gold','wine'];
+const oppIcons = ['💡','📍','🧩','🎯'];
+document.getElementById('opportunities-list').innerHTML = opportunities.map((o,i)=>`
+  <div class="insight ${oppColors[i%oppColors.length]}"><div class="ico">${oppIcons[i%oppIcons.length]}</div><div class="content"><p>${o}</p></div></div>`).join('');
+
+/* D11 — diagnóstico ejecutivo */
+document.getElementById('diag-f').innerHTML = [
+  `Denominación con diferenciación léxica: la combinación "Proyectos" + "Audiovisual" ${comboProyectosAudiovisual===0?'no tiene precedente':'tiene baja presencia'} en el mercado analizado.`,
+  `Créditos (${uao.NÚMERO_CRÉDITOS}) alineados con la mediana nacional (percentil ${pctCred}).`,
+  `Modalidad híbrida poco explotada por la competencia directa (${modalidadesCount['Presencial-Virtual']||0}/${bench.length} programas).`
+].map(t=>`<li>${t}</li>`).join('');
+document.getElementById('diag-d').innerHTML = [
+  `Sin historial de demanda por tratarse de un programa nuevo, lo que limita la proyección de matrícula.`,
+  `Sin precio de matrícula definido, lo que impide su comparación directa en la variable de mayor peso decisional.`,
+  `Los términos "AUDIOVISUAL" (${audiovisualExacto}/${bench.length}) y "PROYECTOS" (${proyectosExacto}/${bench.length}) son de alta competencia por separado, lo que exige una propuesta de valor claramente diferenciada más allá del nombre.`
+].map(t=>`<li>${t}</li>`).join('');
+document.getElementById('diag-o').innerHTML = opportunities.slice(0,3).map(t=>`<li>${t}</li>`).join('');
+document.getElementById('diag-r').innerHTML = [
+  `Riesgo de canibalización léxica frente a otros programas de "Gerencia/Gestión de Proyectos" y maestrías de creación audiovisual de alta similitud combinada.`,
+  `Ausencia de dato de precio puede generar incertidumbre en el Comité Curricular al momento de aprobar la propuesta.`,
+  `Programas de universidades acreditadas (Icesi, Javeriana, EAFIT, Universidad del Valle) ya cubren segmentos narrativos/audiovisuales o de gerencia de proyectos en el país.`
+].map(t=>`<li>${t}</li>`).join('');
+
+/* ============================================================
+   7. CONCLUSIONES (E)
+   ============================================================ */
+const topSimilar = similarityRows[0];
+/* ============================================================
+   8. SCROLL-SPY DEL SIDEBAR
+   ============================================================ */
+(function(){
+  const links = Array.from(document.querySelectorAll('.sidenav a.nav-link'));
+  const targets = links.map(l=>document.querySelector(l.getAttribute('href')));
+  function setActive(){
+    let current = targets[0];
+    const scrollPos = window.scrollY + 120;
+    targets.forEach(t=>{ if(t && t.offsetTop <= scrollPos) current = t; });
+    links.forEach(l=>l.classList.toggle('active', document.querySelector(l.getAttribute('href'))===current));
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+})();
+
+document.getElementById('conclusion-box').innerHTML = `
+<p><b>Recomendación:</b> mantener la denominación <i>"Maestría en Gestión e Innovación de Proyectos Audiovisuales"</i>, dado que la combinación "Proyectos" + "Audiovisual" ${comboProyectosAudiovisual===0?'no tiene precedente':'tiene baja presencia'} en el panorama nacional analizado (n=${bench.length}), lo que otorga diferenciación léxica frente a la oferta existente.</p>
+<p style="margin-top:10px;"><b>Ventajas competitivas:</b> créditos (${uao.NÚMERO_CRÉDITOS}) en línea con la mediana nacional (percentil ${pctCred}), modalidad híbrida poco representada en la competencia directa, y ubicación en Valle del Cauca con oferta limitada en programas equivalentes fuera de Icesi.</p>
+<p style="margin-top:10px;"><b>Riesgos:</b> el programa con mayor similitud combinada de denominación es <b>${escapeHtml(topSimilar.inst)}</b> (${(topSimilar.combined*100).toFixed(0)}% de similitud combinada); se recomienda reforzar la propuesta de valor curricular (líneas de énfasis, syllabus, resultados de aprendizaje) para diferenciar frente a este y otros programas con vocabulario cercano.</p>
+<p style="margin-top:10px;"><b>Oportunidades de posicionamiento:</b> capitalizar el vacío léxico de la combinación "Gestión/Innovación de Proyectos" + "Audiovisual" y la baja saturación regional para posicionar el programa como referente en el Suroccidente colombiano, complementado con una estrategia de precio y una campaña de generación de demanda desde el primer semestre de oferta.</p>
+
+`;
+</script>
+</body>
+</html>
